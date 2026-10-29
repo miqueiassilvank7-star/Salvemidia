@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SalveMídia</title>
+<style>body{background:#0f0f14;color:#eee;font-family:sans-serif;display:grid;place-items:center;height:100vh;margin:0;text-align:center}button{padding:12px 24px;border:0;border-radius:8px;background:#7c4dff;color:#fff;font-size:16px}</style>
+</head><body><div>
+<h2>SalveMídia</h2>
+<p id="m">Abrindo o site...</p>
+<button id="b" style="display:none" onclick="location.reload()">Tentar de novo</button>
+</div>
+<script>
+fetch("link.json?t="+Date.now()).then(r=>r.json()).then(d=>{
+  if(!d.url) throw 0;
+  fetch(d.url,{mode:"no-cors"}).then(()=>location.replace(d.url)).catch(()=>{throw 0});
+}).catch(()=>{
+  document.getElementById("m").textContent="O site está fora do ar ou reiniciando. Tente de novo em 1 ou 2 minutos.";
+  document.getElementById("b").style.display="inline-block";
+});
+</script></body></html>
